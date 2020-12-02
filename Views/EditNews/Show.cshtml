@@ -1,0 +1,12 @@
+@using newsSite.Models;
+@model BlogPost;
+
+<form>
+    <div class="form-group">
+        <p class="h1">@Model.Title 
+            <a class="btn btn-secondary" asp-controller="EditNews" asp-action="AddOrEdit" asp-route-id="@(Model.Id)" asp-route-needEdit=@(true)>Редактировать</a>
+        </p>
+        <small class="text-muted">@Model.Date</small>
+        <p style="word-break: break-all;">@Model.Text</p>
+    </div>
+</form>

@@ -1,0 +1,10 @@
+@using ViewModels;
+@model CategoryViewModel;
+
+<form asp-asp-controller="Home" asp-action="AddCategory" method="Post">
+    <div class="form-group">
+        <input class="form-control" type="text" placeholder="Имя категории" asp-for="DTO.Name"></input>
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Добавить">
+</form>

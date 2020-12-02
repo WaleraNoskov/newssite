@@ -1,0 +1,52 @@
+@using newsSite.ViewModels;
+@model EditViewModel;
+@{
+    ViewData["Title"] = "Add New Post";
+}
+
+@if (Model.Succes)
+{
+    <div class="alert alert-success">
+        Новость успешно добавлена/изменена
+    </div>
+    <meta http-equiv="refresh" content="1; @(Url.Action("list", "news"))" />
+}
+
+<form asp-controller="EditNews" asp-action="AddOrEdit" method="Post">
+    <label>@(Model.NeedEdit ? "Изменить новость" : "Добавить новость")</label>
+
+    @Html.HiddenFor(x=>x.DTO.Id)
+
+    <div class="form-group row">
+        <div class="col">
+            <input class="form-control" placeholder="Название" asp-for="DTO.Title">@(Model.NeedEdit ? @Model.DTO.Title : null)</input>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col">
+            <textarea class="InputText" placeholder="Содержание" style="width: 100%;"
+                asp-for="DTO.Text">@(Model.NeedEdit ? @Model.DTO.Text : null)</textarea>
+        </div>
+    </div>
+
+
+    @foreach (var item in Model.Categories)
+    {
+        <div class="form-check">
+            @if(Model.NeedEdit && Model.DTO.Сategory.Id == item.Id)
+            {
+                <input class="form-check-input" type="radio" value="@(item)" asp-for="DTO.Сategory" id="@(item.Id)" checked>
+                <label class="form-check-label" for="@(item.Id)">@(item.Name)</label>   
+            }
+            else
+            {
+                <input class="form-check-input" type="radio" value="@(item)" asp-for="DTO.Сategory" id="@(item.Id)">
+                <label class="form-check-label" for="@(item.Id)">@(item.Name)</label>   
+            }
+        </div>
+    }
+    
+
+    <input class="btn btn-primary" type="submit" value="AddOrEdit">
+</form>
